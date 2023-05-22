@@ -1,0 +1,121 @@
+<template>
+    <form>
+    
+      <div class="form-row" id="rent">
+        
+          <div class="col-3"><label>Item Name</label></div>
+          <div class="col-7">
+            <input placeholder="Cars,Camera,AnyTool..." type="text" class="form-control" v-model.trim="$v.item.$model" :class="{'is-invalid':$v.item.$error, 'is-valid':!$v.item.$invalid }">
+          <div class="valid-feedback">Your Item Name is valid!</div>
+          <div class="invalid-feedback">
+            <p v-if="!$v.item.required">Item Name is required</p>
+            <p v-if="!$v.item.minLength">Item name must have at least {{$v.item.$params.minLength.min}} Letters .</p>
+            <p v-if="!$v.item.maxLength">Item name must have at most {{$v.item.$params.maxLength.max}} Letters .</p>
+          </div>
+          </div>
+          <div class="col-2"><span>*</span></div> 
+  
+  
+  
+  
+          
+            <div class="col-3" id="area"><label>Description</label></div>
+          <div class="col-7">
+            <textarea placeholder="Description for Your Item..." cols="5" rows="10" class="form-control" v-model.trim="$v.text.$model" :class="{'is-invalid':$v.text.$error, 'is-valid':!$v.text.$invalid }"></textarea>
+          <div class="valid-feedback">Your Description is valid!</div>
+          <div class="invalid-feedback">
+            <p v-if="!$v.text.required">Description is required</p>
+            <p v-if="!$v.text.minLength">Description must have at least {{$v.item.$params.minLength.min}} Letters .</p>
+            <p v-if="!$v.text.maxLength">Description must have at most {{$v.text.$params.maxLength.max}} Letters .</p>
+          </div>
+          </div>
+          <div class="col-2" id="star">*</div> 
+          </div>
+        
+     
+  
+  
+  
+        <div class="col-3"><label>Item Name</label></div>
+          <div class="col-7">
+            <select id="mySelect" data-show-content="true" class="form-control">
+                  <option>Select..</option>
+                  <option data-content="<i class='fa fa-cutlery'></i> Cutlery"></option>
+                  <option data-content="<i class='fa fa-eye'></i> Eye"></option>
+                  <option data-content="<i class='fa fa-heart-o'></i> Heart"></option>
+                  <option data-content="<i class='fa fa-leaf'></i> Leaf"></option>
+                  <option data-content="<i class='fa fa-music'></i> Music"></option>
+                  <option data-content="<i class='fa fa-star'></i> Star"></option>
+                  <option data-content="<span class='badge badge-warning mt-1 ml-2 float-right'>3</span> More"></option>
+              </select>
+          </div>
+          <div class="col-2"><span>*</span></div> 
+  
+  
+  
+  
+  
+      
+   </form>
+  </template>
+  
+  <script>
+  
+  import {required,minLength,maxLength} from 'vuelidate/lib/validators'
+  
+  export default {
+    
+    name:'form rent',
+    components:{
+  
+    },
+    data(){
+      return{
+        item:'',
+        text:'',
+      }
+    },
+    methods:{
+    },
+    validations:{
+      item:{
+        required,
+        minLength:minLength(10),
+        maxLength:maxLength(17)
+      },
+      text:{
+        required,
+        minLength:minLength(10),
+        maxLength:maxLength(5000),
+      }
+    }
+  }
+  </script>
+  
+  
+  <style scoped>
+  #rent label{
+    font-family: sans-serif;
+    color: rgb(60, 60, 250);
+    font-size: 20px;
+    margin-left: 40%;
+  }
+  #rent input, textarea{
+    box-shadow: 5px 10px 18px #eeebeb;
+  }
+  #rent span{
+    color: red;
+    margin-left: 10%;
+  }
+  #area{
+    margin-top: 5%;
+  }
+  textarea{
+    margin-top: 12%;
+  }
+  #star{
+    color: red;
+    margin-top: 20%;
+    padding-left: 20px;
+  }
+  </style>

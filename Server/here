@@ -1,0 +1,35 @@
+		passport.authenticate('facebook'), (req, res) => {
+      res.send('you are authenticated from facbeook callback');
+    });
+
+
+
+    // route middleware to make sure
+function isLoggedIn(req, res, next) {
+
+	// if user is authenticated in the session, carry on
+	if (req.isAuthenticated())
+		return next();
+
+	// if they aren't redirect them to the home page
+	res.redirect('/');
+}
+app.get('/logout', function(req, res) {
+  req.logout();
+  res.redirect('/');
+});
+app.get('/profile', isLoggedIn,(req,res) => {
+  console.log('hellooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo');
+  console.log(req.sessionID);
+  console.log(req.user);
+  res.render("profile", {user: req.user});
+})
+app.get('/auth/facebook', passport.authenticate('facebook', { scope : 'email,user_photos' }));
+app.get('/facebook/callback',
+		passport.authenticate('facebook', {
+			successRedirect : '/profile',
+			failureRedirect : '/'
+		}));
+app.get('/',(req,res) => {
+  res.render("index")
+})
